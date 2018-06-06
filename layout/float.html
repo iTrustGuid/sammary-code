@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>浮动布局理解</title>
+    <style>
+    .example1>article {
+        width: 200px;
+    }
+
+    .example1 .float-item {
+        height: 100px;
+        width: 100px;
+        float: left;
+        background: blue;
+    }
+
+    .example2>article>div {
+        height: 100px;
+    }
+
+    .example2>article:nth-of-type(1)>div:nth-of-type(1) {
+        float: left;
+        width: 100px;
+        background: blue;
+    }
+
+    .example2>article:nth-of-type(1)>div:nth-of-type(2) {
+        margin: 0 100px;
+        background: yellow;
+    }
+
+    .example2>article:nth-of-type(1)>div:nth-of-type(3) {
+        float: right;
+        width: 100px;
+        background: blue;
+    }
+
+    .example2>article:nth-of-type(2) {
+        margin-top: 150px;
+    }
+
+    .example2>article:nth-of-type(2)>div:nth-of-type(1) {
+        float: left;
+        width: 100px;
+        background: blue;
+    }
+
+    .example2>article:nth-of-type(2)>div:nth-of-type(2) {
+        float: right;
+        width: 100px;
+        background: blue;
+    }
+
+    .example2>article:nth-of-type(2)>div:nth-of-type(3) {
+        margin: 0 100px;
+        background: yellow;
+    }
+
+    .example3{
+        margin-top: 100px;
+    }
+    .example3>article .float-item{
+        float: left;
+        height: 100px;
+        width: 100px;
+        background: red;
+    }    
+    /* 第四种方法，兼容到ie8，如果是使用双冒号，只兼容到ie9 */
+
+    .example3>article .float-parent::after{
+        clear:both;
+        content:"";
+        display: block;
+    }
+    .example3>article .float-parent{
+        /* 第一钟方法，在其父级元素上创建一个BFC */
+        /* overflow: hidden; */
+    }
+    .example3>article .content{
+        /* 第二种方法，使用clear属性清除浮动 */
+        /* clear:both; */
+        height: 100px;
+        background: blue;
+    }
+    </style>
+</head>
+
+<body>
+    <article>
+        <p>
+            1.float取值：left right none inline-start inline-end inherit initial unset 其中inline-start与inline-end是配合 ltr、rtl使用的，现在大部分浏览器还不支持这两个属性。
+        </p>
+        <p>
+            2.浮动属性就是指定一个元素应沿其容器的左侧或右侧放置，允许文本和内联环绕它。该元素从网页的正常流动中移除，但仍保留部分流动性（与绝对定位不一致）。
+        </p>
+        <p>
+            3.浮动属性意味着使用块布局，它会修改display的值。
+        </p>
+        <p>
+            4.浮动元素的高宽取决于指定的高宽或者内容的高宽。
+        </p>
+        <p>
+            5.浮动元素会依次沿着容器的左、右或者前面一个浮动元素的边缘依次排列。填满容器则自动换行。
+        </p>
+    </article>
+    <section class="example1">
+        <h4>简单示例：</h4>
+        <article>
+            <div class="float-item"></div>
+            <p>
+                我是文本！我是文本！我是文本！我是文本！我是文本！ 我是文本！我是文本！我是文本！我是文本！我是文本！ 我是文本！我是文本！我是文本！我是文本！我是文本！ 我是文本！我是文本！我是文本！我是文本！我是文本！ 我是文本！我是文本！我是文本！我是文本！我是文本！ 我是文本！我是文本！我是文本！我是文本！我是文本！
+            </p>
+        </article>
+    </section>
+    <section class="example2">
+        <h4>经典三栏布局：</h4>
+        <article>
+            <div></div>
+            <div>错误示例</div>
+            <div></div>
+        </article>
+        <article>
+            <div></div>
+            <div></div>
+            <div>正确示例</div>
+        </article>
+    </section>
+    <section class="example3">
+        <h4>清除浮动：</h4>
+        <article>
+            <div class="float-parent">
+                <div class="float-item"></div>
+                <!-- 第三种方法 -->
+                <!-- <div style="clear: both;"></div>                 -->
+            </div>
+            <div class="content"></div>
+        </article>
+    </section>
+</body>
+
+</html>
