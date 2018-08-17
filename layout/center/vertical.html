@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>垂直居中</title>
+    <style type="text/css" media="screen">
+    .container {
+        height: 50px;
+        margin-bottom: 50px;
+        background: blue;
+        color: white;
+    }
+
+    .container .box {
+        background: red;
+    }
+    /* 1.行内元素，line-height */
+
+    .lay1 .box {
+        display: inline;
+        line-height: 50px;
+    }
+    /* 2.行内块级元素，vertical-align:middle; */
+
+    .lay2::after,
+    .lay2 .box {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .lay2::after {
+        content: "";
+        height: 100%;
+    }
+    /* 3.弹性盒布局(IE10) */
+
+    .lay3 {
+        display: flex;
+        align-items: center;
+    }
+    /* 4.table，vertical-align */
+    .lay4{
+    	display: table;
+    	width: 100%;
+    }
+    .lay4>div{
+    	display: table-cell;
+    	vertical-align: middle;
+    }
+    /* 5.绝对定位+transform(兼容到IE9) */
+    .lay5 .box{
+    	position: relative;
+    	top: 50%;
+    	transform: translate(0, -50%);
+    }
+    /* 6.绝对定位+margin:auto; */
+    .lay6{
+    	position: relative;
+    }
+	.lay6 .box{
+		position: absolute;
+		height: 22px;
+		top: 0;
+		bottom: 0;
+		margin: auto 0;
+	}
+    /* 7.绝对定位+margin-top; */
+    .lay7{
+    	position: relative;
+    }
+	.lay7 .box{
+		position: absolute;
+		height: 22px;
+		top: 50%;
+		margin-top: -11px;
+	}
+
+	/* 
+		总结：
+		1.兼容IE10或以上，使用弹性盒最佳。
+		2.IE9,布局5（transform）最佳。
+		3.兼容更低版本，看情况使用布局2、4。
+	 */
+    </style>
+</head>
+
+<body>
+    <div class="container lay1">
+        <div class="box">
+            居中元素
+        </div>
+    </div>
+    <div class="container lay2">
+        <div class="box">
+            居中元素
+        </div>
+    </div>
+    <div class="container lay3">
+        <div class="box">
+            居中元素
+        </div>
+    </div>
+    <div class="container lay4">
+        <div>
+            <div class="box">
+                居中元素
+            </div>
+        </div>
+    </div>
+    <div class="container lay5">
+        <div class="box">
+            居中元素
+        </div>
+    </div>
+    <div class="container lay6">
+        <div class="box">
+            居中元素
+        </div>
+    </div>
+    <div class="container lay7">
+        <div class="box">
+            居中元素
+        </div>
+    </div>
+</body>
+
+</html>

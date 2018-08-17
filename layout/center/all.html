@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>水平垂直居中</title>
+    <style type="text/css" media="screen">
+    .container {
+        height: 50px;
+        margin-bottom: 50px;
+        background: blue;
+        color: white;
+    }
+
+    .box {
+        background: red;
+    }
+    /* 1.行内元素 */
+
+    .lay1 {
+        text-align: center;
+    }
+
+    .lay1 .box {
+        display: inline;
+        line-height: 50px;
+    }
+    /* 2.行内块状元素 */
+
+    .lay2 {
+        text-align: center;
+    }
+
+    .lay2::after,
+    .lay2 .box {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .lay2::after {
+        content: "";
+        height: 100%;
+    }
+
+    .lay2 .box {
+        height: 30px;
+    }
+    /* 3.表格布局 */
+
+    .lay3 {
+        display: table;
+        width: 100%;
+    }
+
+    .lay3>div {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    .lay3 .box {
+        width: 100px;
+        margin: auto;
+    }
+    /* 4.弹性盒（兼容到IE10） */
+    .lay4{
+    	display: flex;
+    	align-items: center;
+    	justify-content: center;
+    }
+    /* 5.定位+transform（兼容到IE9） */
+    .lay5 .box{
+    	position: relative;
+    	width: 100px;
+    	top: 50%;
+    	left: 50%;
+    	transform: translate(-50%, -50%);
+    }
+    /* 6.定位+固定高宽+auto */
+    .lay6{
+    	position: relative;
+    }
+    .lay6 .box{
+    	position: absolute;
+    	width: 100px;
+    	height: 30px;
+    	top: 0;
+    	bottom: 0;
+    	left: 0;
+    	right: 0;
+    	margin: auto;
+    }
+    /* 7.定位+固定高宽+margin-top+margin-bottom */
+    .lay7{
+    	/* 创建一个BFC，解决第一个子类元素的上外边距问题 */
+    	overflow: auto;
+    }
+	.lay7 .box{
+		position: relative;
+		width: 100px;
+		height: 30px;
+		/* 这里也可以使用 calc(50% - 15px) 代替，不过只能兼容到IE9 */
+		top: 50%;
+		left: 50%;
+		margin: -15px 0 0 -50px;
+	}
+
+	/* 
+		总结：
+		1.行内元素使用布局1，行内块元素使用布局2。
+		2.块状元素，如果兼容到IE10，使用布局4弹性盒布局。
+		3.考虑兼容性，已知高宽，可以使用布局6或布局7。未知高度使用布局3表格布局，只需兼容到IE9可以使用布局5。
+	 */
+    </style>
+</head>
+
+<body>
+    <div class="container lay1">
+        <div class="box">
+            居中元素
+        </div>
+    </div>
+    <div class="container lay2">
+        <div class="box">
+            居中元素
+        </div>
+    </div>
+    <div class="container lay3">
+        <div>
+            <div class="box">
+                居中元素
+            </div>
+        </div>
+    </div>
+    <div class="container lay4">
+        <div class="box">
+            居中元素
+        </div>
+    </div>
+    <div class="container lay5">
+        <div class="box">
+            居中元素
+        </div>
+    </div>
+    <div class="container lay6">
+        <div class="box">
+            居中元素
+        </div>
+    </div>
+    <div class="container lay7">
+        <div class="box">
+            居中元素
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>水平居中</title>
+    <style type="text/css" media="screen">
+    .container {
+        margin-bottom: 50px;
+        background: blue;
+        color: white;
+    }
+
+    .box {
+        background: red;
+    }
+    /* 1.行内元素 */
+
+    .lay1 {
+        text-align: center;
+    }
+
+    .lay1 .box {
+        display: inline;
+    }
+    /* 2.块状元素margin值 */
+
+    .lay2 .box {
+        width: 100px;
+        /* width: fit-content;	只有chrome和火狐较高版本才支持，IE完全不支持 */
+        margin: 0 auto;
+    }
+    /* 3.弹性盒布局 */
+
+    .lay3 {
+        display: flex;
+        /* 只部分支持IE10 */
+        justify-content: center;
+    }
+    /* 4.定位方式+margin(需要子元素宽度固定) */
+
+    .lay4 .box {
+        position: relative;
+        width: 100px;
+        left: 50%;
+        margin-left: -50px;
+    }
+    /* 5.定位方式+transform（兼容到IE9） */
+
+    .lay5 {
+        position: relative;
+        height: 22px;
+        /* overflow: auto; */
+    }
+
+    .lay5 .box {
+        position: absolute;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+    /* 6.绝对定位+margin:auto,这里其实完全可以使用第二种方法替代 */
+
+    .lay6 {
+        position: relative;
+        height: 22px;
+    }
+
+    .lay6 .box {
+        position: absolute;
+        width: 100px;
+        left: 0;
+        right: 0;
+        margin: auto;
+    }
+
+    /* 
+		总体而言：
+		1.弹性盒布局最为简单优雅。
+		2.1、2两种布局方案在兼容性好的基础上最为简单，但第二种方案需要知道子元素宽度值。
+		3.如果宽度未知，使用1、5方案
+
+		如果只需要兼容到IE10，则使用弹性盒
+		如果子元素宽度已知需要兼容到更低版本，则使用1、2布局方式。
+		如果子元素宽度未知，如需要兼容到低版本，则使用1方案或者代码计算宽度，如果只需要兼容到IE9可使用方案5
+	 */
+    </style>
+</head>
+
+<body>
+    <!-- 1.行内元素 -->
+    <div class="container lay1">
+        <div class="box">
+            居中元素
+        </div>
+    </div>
+    <!-- 2.块状元素margin值 -->
+    <div class="container lay2">
+        <div class="box">
+            居中元素
+        </div>
+    </div>
+    <!-- 3.弹性盒布局（部分支持到IE10） -->
+    <div class="container lay3">
+        <div class="box">
+            居中元素
+        </div>
+    </div>
+    <!-- 4.定位方式+margin(需要子元素宽度固定) -->
+    <div class="container lay4">
+        <div class="box">
+            居中元素
+        </div>
+    </div>
+    <!-- 5.定位方式+transform（兼容到IE9） -->
+    <div class="container lay5">
+        <div class="box">
+            居中元素
+        </div>
+    </div>
+    <!-- 6.定位方式+transform -->
+    <div class="container lay6">
+        <div class="box">
+            居中元素
+        </div>
+    </div>
+</body>
+
+</html>
